@@ -1,24 +1,24 @@
 package SalesVeiw.MainWeb;
 
-import com.sun.net.httpserver.Headers;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
+import Controller.Headers;
 import Controller.InvoiceSelectionListener;
+import SalesSample.Header;
 import SalesSample.HeaderTable;
 import SalesSample.Item;
 import SalesSample.ItemTable;
-import javax.swing.JLabel;
-import javax.swing.JTable;
+
+import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import static javax.swing.BorderFactory.*;
 import static javax.swing.GroupLayout.PREFERRED_SIZE;
 
 
@@ -61,7 +61,7 @@ public class App<createNewLine> extends JFrame{
 
     public App(){initComponents();
         invoiceItemsable = null;
-    }
+    };
 
     private void initComponents(){
 
@@ -92,7 +92,7 @@ public class App<createNewLine> extends JFrame{
         setPreferredSize(new Dimension(1100,650));
         setSize(new Dimension(1100,650));
 
-        invoicesTabelPanel.setBounds(createTitledBorder("Invoices Table"));
+        invoicesTabelPanel.getBounds();
         invoicesTable.setModel(new DefaultTableModel(
                 new Object[][]{
                 } ,
@@ -100,7 +100,7 @@ public class App<createNewLine> extends JFrame{
                         "No.", "Date", "customer", "Total"
                 }
         ));
-        invoicesTable.getSelectionModel().addListSelectionListener(invoiceSelectionListener);
+        invoicesTable.getSelectionModel().addListSelectionListener(invoiceSelectionListener.get());
         jScrollPane1.setViewportView(invoicesTable);
         GroupLayout InvoicesTablePanelLayout = new GroupLayout(invoicesTablePanel);
         Dimension size = invoicesTabelPanel.size();
@@ -119,7 +119,8 @@ public class App<createNewLine> extends JFrame{
         customerNameLabel.setText("Customer Name");
         invoiceTotalLabel.setText("Invoice Total");
         GroupLayout invoiceHeaderPanelLayout = new GroupLayout(invoiceHeaderPanel);
-        InvoicesTablePanelLayout.linkSize(invoiceHeaderPanelLayout);
+        InvoicesTablePanelLayout.linkSize();
+        Object MAX_VALUE = null;
         invoiceHeaderPanelLayout.setHorizontalGroup(
                 invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(invoiceHeaderPanelLayout.createSequentialGroup()
@@ -133,23 +134,29 @@ public class App<createNewLine> extends JFrame{
                                                 ).addComponent(invoiceDateLabel, GroupLayout.Alignment.TRAILING, PREFERRED_SIZE,100, PREFERRED_SIZE)
                                 ).addComponent(customerNameLabel, GroupLayout.Alignment.TRAILING, PREFERRED_SIZE,97, PREFERRED_SIZE))
 
-                        ).addComponent(invoiceTotalLabel, GroupLayout.Alignment.TRAILING, PREFERRED_SIZE,97, PREFERRED_SIZE))
-                .addGroup(invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING,invoiceHeaderPanelLayout.createSequentialGroup()
-                                .addGap(10,10,10)
-                                .addGroup(invoiceHeaderPanelLayout, PREFERRED_SIZE, 135, PREFERRED_SIZE))
-                        .addGroup(invoiceHeaderPanelLayout.createParallelGroup())
-                        .addGroup(invoiceHeaderPanelLayout.createSequentialGroup())
-                        .addGap(10,10,10)
-                        .addComponent(invoiceNumberValueLabel, PREFERRED_SIZE,135, PREFERRED_SIZE))
-                .addGroup(GroupLayout.Alignment.TRAILING,invoiceHeaderPanelLayout.createSequentialGroup()
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                                .addComponent(customerNameValueLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,short.MAX_VALUE)
-                                .addComponent(invoiceTotalValueLabel, GroupLayout.DEFAULT_SIZE,138, Shot.MAX_VALUE)))))
-        .addGap(285,Short.MAX_VALUE))
+                        ).addComponent(invoiceTotalLabel, GroupLayout.Alignment.TRAILING, PREFERRED_SIZE,97, PREFERRED_SIZE));
+               // .addGroup(invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                 //       .addGroup(GroupLayout.Alignment.TRAILING,invoiceHeaderPanelLayout.createSequentialGroup()
+                   //             .addGap(10,10,10)
+                     //           .addGroup(invoiceHeaderPanelLayout,
+                                 //       PREFERRED_SIZE,
+                                   //     135,
+                                     //   PREFERRED_SIZE;))
+                       // .addGroup(invoiceHeaderPanelLayout.createParallelGroup())
+                       // .addGroup(invoiceHeaderPanelLayout.createSequentialGroup())
+                        //.addGap(10,10,10)
+                        //.addComponent(invoiceNumberValueLabel, PREFERRED_SIZE,135, PREFERRED_SIZE))
+                //.addGroup(GroupLayout.Alignment.TRAILING,invoiceHeaderPanelLayout.createSequentialGroup()
+                  //      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    //    .addGroup(invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                      //          .addGroup(customerNameValueLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,short.MAX_VALUE)
+                        //        .addGroup(invoiceTotalValueLabel,
+                                      //  GroupLayout.DEFAULT_SIZE,
+                                       // 138,
+          //                              MAX_VALUE)))))
+        //.addGap(285,Short.MAX_VALUE);
 
-        )InvoiceHeaderPabelLayout.setVerticalGroup(
+        //)InvoiceHeaderPabelLayout.setVerticalGroup(
                 invoiceHeaderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(invoiceHeaderPanelLayout.createSequentialGroup()
                                 .addContainerGap()
@@ -165,13 +172,13 @@ public class App<createNewLine> extends JFrame{
                                         .addComponent(customerNameValueLabel)
                                         .addComponent(customerNameLabel))
         ).addGap(LayoutStyle.ComponentPlacement.RELATED.ordinal())
-                        .addComponent(invoiceTotalValueLabel))
-                .addGroup(invoiceHeaderPanelLayout.createSequentialGroup()
-                        .addGap(80,80,80)
-                        .addComponent(invoiceTotal.Label));
+                        .addComponent(invoiceTotalValueLabel);
+            //    .addGroup(invoiceHeaderPanelLayout.createSequentialGroup()
+              //          .addGap(80,80,80)
+                //        .addGroup(invoiceTotal.Label));
         addGap(GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE);
 
-        invoiceItemsPanel.setBounds(BorderFactory.createTitledBorder("INVOICE ITEMS"));
+        invoiceItemsPanel.setBounds(null);
         invoiceItemsTable.setModel(new DefualtTabelModel(
                 new Object[][]{
 
@@ -183,7 +190,7 @@ public class App<createNewLine> extends JFrame{
         JScrollPane2.setViewportView(invoiceItemsTable);
 
         GroupLayout invoiceItemPanelLayout =new GroupLayout(invoiceItemsPanel);
-        invoiceItemsPanel.size(invoiceItemPanelLayout);
+        invoiceItemsPanel.size();
         invoiceItemPanelLayout.setHorizontalGroup(
                 invoiceItemPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0,0,Short.MAX_VALUE)
@@ -191,8 +198,8 @@ public class App<createNewLine> extends JFrame{
                         .addGroup(invoiceItemPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE,485,Short.MAX_VALUE)
-                                .addContainerGap()))
-        )deleteInvoiceButton.setText("Delete Invoice");
+                                .addContainerGap()));
+        deleteInvoiceButton.setText("Delete Invoice");
         deleteInvoiceButton.addActionListener(actionsListener);
 
         createNewInvoiceButton.setText("Create New Invoice");
@@ -207,7 +214,7 @@ public class App<createNewLine> extends JFrame{
 
         loadFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0,
                 InputEvent.CTRL_DOWN_MASK));
-        loadFileMenu.setVisible("Load File");
+        loadFileMenu.setVisible(Boolean.parseBoolean("Load File"));
         loadFileMenuItem.addActionListener(actionsListener);
         fileMenu.add(loadFileMenuItem);
 
@@ -220,7 +227,7 @@ public class App<createNewLine> extends JFrame{
         jMenuBar1.add(fileMenu);
         setJMenuBar(jMenuBar1);
 
-        GroupLayout layout= new GroupLayout((getContentPane());
+        GroupLayout layout= new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -312,11 +319,7 @@ public class App<createNewLine> extends JFrame{
 
     };
 
-    private final InvoiceSelectionListener invoiceSelectionListener;
-
-    {
-        invoiceSelectionListener = new invoiceSelectionListener(this);
-    }
+    private final ThreadLocal<InvoiceSelectionListener> invoiceSelectionListener = new ThreadLocal<InvoiceSelectionListener>();
 
     private ArrayList<Item> itemsArrayList;
     private ArrayList<Headers> headersArrayList;
@@ -330,10 +333,12 @@ public class App<createNewLine> extends JFrame{
     public void setItemsArrayList(ArrayList<Item>itemsArrayList){this.itemsArrayList=itemsArrayList;}
     public void setActionListener(ActionListener actionListener){this.actionListener=actionListener;}
     public void  setHeadersArrayList(ArrayList<Headers>headersArrayList){this.headersArrayList=headersArrayList;}
-    public ArrayList<Headers> getHeadersArrayList(){return headersArrayList;}
+    public ArrayList<Headers> getHeadersArrayList(){
+        ArrayList<Headers> headersArrayList1 = headersArrayList;
+        return headersArrayList1;}
     public Headers getNo(int no) {
         for (Headers headers : headersArrayList) {
-            Object o =;
+            Object o = null;
             if (headers.get(o) == no) {
                 return headers;
             }
@@ -355,18 +360,19 @@ public class App<createNewLine> extends JFrame{
         return itemTable;
     }
 
-    public  void  setItemTable(ItemTable = new ItemTable) {
+    public  void  setItemTable() {
     }
     public JLabel getCustomerNameValueLabel(){return customerNameValueLabel;}
     public void  setCustomerNameValueLabel (JLabel customerNameValueLabel){ this.customerNameValueLabel=customerNameValueLabel;}
     public  JLabel getInvoiceDateValueLabel;
     private final Object invoiceDatavaluelabel = null;
 
-    {return invoiceDatavaluelabel;}
-    public void setInvoiceDateValueLabel(JLabel invoiceDateValueLabe) {this.invoiceDataValueLabel =invoiceDateValueLabel;}
+    {
+        Object invoiceDatavaluelabel1 = invoiceDatavaluelabel;
+        Object invoiceDatavaluelabel11 = invoiceDatavaluelabel1;
+        }
+    public void setInvoiceDateValueLabel(JLabel invoiceDateValueLabel) {this.invoiceDataValueLabel =invoiceDateValueLabel;}
 
-    public JLabel getInvoiceNumberValueLabel(){return invoiceNumberValueLabel;}
-    public void setInvoiceNumberValueLabel(JLabel invoiceNumberValueLabel){this.invoiceNumberValueLabel=invoiceNumberValueLabel;}
     public JLabel getInvoiceNumberValueLabel() {return invoiceNumberValueLbel;}
     public void setInvoiceNumberValueLabel (JLabel invoiceNumberValueLabel){this.invoiceNumberValueLabel =invoiceNumberValueLabel;}
 
@@ -374,11 +380,12 @@ public class App<createNewLine> extends JFrame{
 
     public void setInvoiceTotalValueLabel(JLabel invoiceTotalValueLabel){this.invoiceTotalValueLabel =invoiceTotalValueLabel;}
     public JLabel getInvoiceItemsTable;
-    private final Object invoiceItemsable;
+    private Object invoiceItemsable = null;
 
     {
         AbstractButton invoiceItemsTable1 = invoiceItemsTable;
-        return invoiceItemsable;}
+        Object invoiceItemsable1 = invoiceItemsable;
+        ;}
 
     public void setInvoiceItemsTable(JLabel invoiceItemsTable){this.invoiceItemTable=invoiceItemTable;}
 
@@ -419,6 +426,10 @@ public class App<createNewLine> extends JFrame{
 
     public JLabel getInvoiceDateValueLabel() {
         return invoiceDateValueLabel;
+    }
+
+    public Header[] getHeadersArrayList(Object o) {
+        return new Header[0];
     }
 
     private class DefualtTabelModel implements ButtonModel {

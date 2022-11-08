@@ -26,7 +26,7 @@ public class HeaderTable extends AbstractTableModel{
             case 0:
                 return header.getInvoiceNumber();
             case 1 :
-                return ActionListener.simpleDataFormat.format(header.getInvoiceDate());
+                return ActionListener.SimpleDataFormat.format(header.getInvoiceDate());
             case 2:
                 return header.getCustomer();
             case 3:

@@ -29,7 +29,7 @@ public class Header {
     }
     public int getInvoiceNumber(){return invoiceNumber;}
 
-    public LogRecord getInvoiceDate(){return invoiceDate;}
+    public String getInvoiceDate(){return String.valueOf(invoiceDate);}
 
     public String getCustomer(){return customer;}
 
@@ -78,5 +78,8 @@ public class Header {
     public Header get(int selectedInvoice) {
         Header header = null;
         return header;
+    }
+
+    public void add(ArrayList headersArrayList) {
     }
 }

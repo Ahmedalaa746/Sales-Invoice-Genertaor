@@ -13,7 +13,6 @@ public class AddingNewData extends javax.swing.JDialog{
     initcomponents();
 
     createLineButton.addActionListener(appFrame.getActionsListener());
-    cancelLineButton.addActionListener(appFrame.getActionsListener());
     }
 
     private void initcomponents() {
